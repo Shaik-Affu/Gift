@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afrin's Illuminated Memories</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;700;900&family=Great+Vibes&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Playfair Display', serif;
+            background: #0a0a0a;
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at top, #1e3c72 0%, #2a5298 50%, #0a0a0a 100%);
+            z-index: -3;
+        }
+        
+        .afrin-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .bg-name {
+            position: absolute;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.05);
+            user-select: none;
+            animation: floatText 20s ease-in-out infinite;
+        }
+        
+        .bg-name-1 {
+            font-size: 15rem;
+            top: 10%;
+            left: -5%;
+            transform: rotate(-15deg);
+            animation-delay: 0s;
+        }
+        
+        .bg-name-2 {
+            font-size: 12rem;
+            top: 50%;
+            right: -10%;
+            transform: rotate(25deg);
+            animation-delay: -7s;
+        }
+        
+        .bg-name-3 {
+            font-size: 18rem;
+            bottom: 10%;
+            left: 10%;
+            transform: rotate(-10deg);
+            animation-delay: -14s;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 100px 20px 80px;
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(255,20,147,0.1) 50%, rgba(138,43,226,0.1) 100%);
+        }
+        
+        .afrin-title {
+            font-family: 'Great+Vibes', cursive;
+            font-size: 8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #FFD700, #FF69B4, #FF1493, #8A2BE2, #4169E1, #00CED1);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+            text-shadow: 0 0 50px rgba(255,215,0,0.8);
+            margin-bottom: 30px;
+            position: relative;
+            letter-spacing: 0.1em;
+        }
+        
+        .afrin-title::before {
+            content: 'AFRIN';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        .afrin-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: rgba(255,215,0,0.9);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+        
+        .hero-message {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.8);
+            font-style: italic;
+            animation: fadeInUp 1s ease 1s both;
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .floating-letters {
+            position: absolute;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: rgba(255,215,0,0.3);
+            pointer-events: none;
+            animation: floatLetters 15s ease-in-out infinite;
+        }
+        
+        .letter-a { top: 20%; left: 10%; font-size: 4rem; animation-delay: 0s; }
+        .letter-f1 { top: 30%; right: 15%; font-size: 3.5rem; animation-delay: -3s; }
+        .letter-r { bottom: 40%; left: 20%; font-size: 4.5rem; animation-delay: -6s; }
+        .letter-i { top: 60%; right: 25%; font-size: 3rem; animation-delay: -9s; }
+        .letter-n { bottom: 20%; right: 10%; font-size: 4rem; animation-delay: -12s; }
+        .letter-f2 { top: 40%; left: 5%; font-size: 3.8rem; animation-delay: -2s; }
+        
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin: 80px 0 50px;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 50px;
+            margin-bottom: 80px;
+        }
+        
+        .frame-card {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+            overflow: hidden;
+        }
+        
+        .frame-classic {
+            background: linear-gradient(145deg, #8B4513, #CD853F, #DAA520);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 20px 50px rgba(0,0,0,0.5);
+            border: 3px solid #FFD700;
+        }
+        
+        .frame-modern {
+            background: linear-gradient(145deg, #2C3E50, #34495E, #5D6D7E);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            border: 2px solid #3498DB;
+        }
+        
+        .frame-vintage {
+            background: linear-gradient(145deg, #D4AF37, #FFD700, #F4D03F);
+            padding: 30px;
+            border-radius: 60px;
+            box-shadow: inset 0 0 35px rgba(0,0,0,0.2), 0 15px 40px rgba(212,175,55,0.4);
+            border: 4px solid #B7950B;
+        }
+        
+        .frame-neon {
+            background: rgba(0,0,0,0.9);
+            padding: 15px;
+            border: 4px solid #00ff88;
+            border-radius: 15px;
+            box-shadow: 0 0 30px #00ff88, inset 0 0 30px rgba(0,255,136,0.1);
+            position: relative;
+        }
+        
+        .frame-neon::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(45deg, #00ff88, #ff0080, #8000ff, #00ff88);
+            border-radius: 15px;
+            z-index: -1;
+            animation: neonPulse 2s ease-in-out infinite;
+        }
+        
+        .frame-diamond {
+            background: linear-gradient(145deg, #E6E6FA, #DDA0DD, #DA70D6);
+            padding: 25px;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #BA55D3;
+        }
+        
+        .frame-diamond::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: rotate 6s linear infinite;
+        }
+        
+        .afrin-watermark {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-family: 'Great+Vibes', cursive;
+            font-size: 1.8rem;
+            color: rgba(255,215,0,0.7);
+            z-index: 10;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        .photo-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+        
+        .photo {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            transition: all 0.8s ease;
+            filter: brightness(0.9) saturate(1.1);
+        }
+        
+        .frame-card:hover .photo {
+            transform: scale(1.15) rotate(1deg);
+            filter: brightness(1.2) saturate(1.4) contrast(1.2);
+        }
+        
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 25px;
+            transform: translateY(100%);
+            transition: all 0.6s ease;
+        }
+        
+        .frame-card:hover .photo-overlay {
+            transform: translateY(0);
+        }
+        
+        .photo-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        .photo-message {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.95);
+            line-height: 1.5;
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .lighting-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        
+        .frame-card:hover .lighting-effect {
+            opacity: 1;
+        }
+        
+        .light-beam {
+            position: absolute;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(255,215,0,0.8), transparent);
+            animation: lightSweep 2.5s ease-in-out infinite;
+        }
+        
+        .glow-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255,215,0,0.2) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+        
+        .action-controls {
+            text-align: center;
+            margin: 80px 0;
+        }
+        
+        .premium-btn {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            border: none;
+            padding: 20px 45px;
+            margin: 20px;
+            border-radius: 60px;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 20px 40px rgba(102,126,234,0.4);
+            font-family: 'Cinzel', serif;
+        }
+        
+        .premium-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+        
+        .premium-btn:hover::before {
+            left: 100%;
+        }
+        
+        .premium-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(102,126,234,0.6);
+        }
+        
+        .magic-particles {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: magicFloat 4s ease-in-out forwards;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0px) rotate(-15deg); }
+            50% { transform: translateY(-30px) rotate(-10deg); }
+        }
+        
+        @keyframes floatLetters {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(10deg); opacity: 0.6; }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes neonPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes lightSweep {
+            0% { left: -15px; opacity: 0; }
+            50% { opacity: 1; }
+            100% { left: 100%; opacity: 0; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.8; }
+        }
+        
+        @keyframes magicFloat {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-150px) scale(2); }
+        }
+        
+        @keyframes firework {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(4); opacity: 0; }
+        }
+        
+        .firework {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            animation: firework 1.2s ease-out forwards;
+        }
+        
+        @media (max-width: 768px) {
+            .afrin-title { font-size: 4rem; }
+            .bg-name-1 { font-size: 8rem; }
+            .bg-name-2 { font-size: 6rem; }
+            .bg-name-3 { font-size: 10rem; }
+            .gallery-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero { padding: 80px 20px 60px; }
+            .floating-letters { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg"></div>
+    
+    <!-- Afrin Background Names -->
+    <div class="afrin-background">
+        <div class="bg-name bg-name-1">AFRIN</div>
+        <div class="bg-name bg-name-2">AFRIN</div>
+        <div class="bg-name bg-name-3">AFRIN</div>
+    </div>
+    
+    <div class="stars" id="stars"></div>
+    
+    <div class="hero">
+        <!-- Floating Letters -->
+        <div class="floating-letters letter-a">A</div>
+        <div class="floating-letters letter-f1">F</div>
+        <div class="floating-letters letter-r">R</div>
+        <div class="floating-letters letter-i">I</div>
+        <div class="floating-letters letter-n">N</div>
+        <div class="floating-letters letter-f2">F</div>
+        
+        <h1 class="afrin-title">AFRIN</h1>
+        <p class="afrin-subtitle">Illuminated Memories</p>
+        <p class="hero-message">"Every picture tells Afrin's story, every memory lights up her soul"</p>
+    </div>
+    
+    <div class="gallery-container">
+        <h2 class="section-title">🌟 Afrin's Classic Elegance 🌟</h2>
+        <div class="gallery-grid">
+            <div class="frame-card frame-classic" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/1.jpg" class="photo" alt="Afrin's Elegant Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Golden Moments</h3>
+                        <p class="photo-message">Life's most beautiful chapters in Afrin's journey are written in golden ink, capturing hearts forever. 💛</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="frame-card frame-vintage" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/7.jpg" class="photo" alt="Afrin's Vintage Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 0.7s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Timeless Beauty</h3>
+                        <p class="photo-message">Some moments in Afrin's life are so precious, they become timeless treasures in our hearts. ✨</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="section-title">🎆 Afrin's Modern Brilliance 🎆</h2>
+        <div class="gallery-grid">
+            <div class="frame-card frame-modern" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/2.jpg" class="photo" alt="Afrin's Modern Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 1.2s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Contemporary Grace</h3>
+                        <p class="photo-message">Modern moments in Afrin's world shine with contemporary elegance and sophisticated charm. 🌟</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="frame-card frame-neon" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/3.jpg" class="photo" alt="Afrin's Neon Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 1.8s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Electric Dreams</h3>
+                        <p class="photo-message">Vibrant energy and electric dreams create memories that glow in Afrin's magnificent world. ⚡</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="section-title">💎 Afrin's Diamond Collection 💎</h2>
+        <div class="gallery-grid">
+            <div class="frame-card frame-diamond" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/4.jpg" class="photo" alt="Afrin's Diamond Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 2.3s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Precious Brilliance</h3>
+                        <p class="photo-message">Like diamonds, Afrin's memories sparkle with infinite brilliance and eternal beauty. 💎</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="frame-card frame-classic" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/5.jpg" class="photo" alt="Afrin's Royal Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 2.8s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Royal Elegance</h3>
+                        <p class="photo-message">Majestic moments in Afrin's life deserve royal treatment, framed in elegance and grace. 👑</p>
+                    </div>
+                </div>
+            </div>
+            <div class="frame-card frame-classic" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/6.jpg" class="photo" alt="Afrin's Royal Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 2.8s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Royal Elegance</h3>
+                        <p class="photo-message">Majestic moments in Afrin's life deserve royal treatment, framed in elegance and grace. 👑</p>
+                    </div>
+                </div>
+            </div><div class="frame-card frame-classic" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/8.jpg" class="photo" alt="Afrin's Royal Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 2.8s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Royal Elegance</h3>
+                        <p class="photo-message">Majestic moments in Afrin's life deserve royal treatment, framed in elegance and grace. 👑</p>
+                    </div>
+                </div>
+            </div>
+            <div class="frame-card frame-classic" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/9.jpg" class="photo" alt="Afrin's Royal Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 2.8s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Royal Elegance</h3>
+                        <p class="photo-message">Majestic moments in Afrin's life deserve royal treatment, framed in elegance and grace. 👑</p>
+                    </div>
+                </div>
+            </div><div class="frame-card frame-classic" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/10.jpg" class="photo" alt="Afrin's Royal Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 2.8s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Royal Elegance</h3>
+                        <p class="photo-message">Majestic moments in Afrin's life deserve royal treatment, framed in elegance and grace. 👑</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gallery-grid">
+            <div class="frame-card frame-diamond" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/11.jpg" class="photo" alt="Afrin's Diamond Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 2.3s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Precious Brilliance</h3>
+                        <p class="photo-message">Like diamonds, Afrin's memories sparkle with infinite brilliance and eternal beauty. 💎</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="frame-card frame-classic" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/12.jpg" class="photo" alt="Afrin's Royal Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 2.8s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Royal Elegance</h3>
+                        <p class="photo-message">Majestic moments in Afrin's life deserve royal treatment, framed in elegance and grace. 👑</p>
+                    </div>
+                </div>
+            </div>
+            <div class="frame-card frame-classic" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/13.jpg" class="photo" alt="Afrin's Royal Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 2.8s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Royal Elegance</h3>
+                        <p class="photo-message">Majestic moments in Afrin's life deserve royal treatment, framed in elegance and grace. 👑</p>
+                    </div>
+                </div>
+            </div><div class="frame-card frame-classic" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/14.jpg" class="photo" alt="Afrin's Royal Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 2.8s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Royal Elegance</h3>
+                        <p class="photo-message">Majestic moments in Afrin's life deserve royal treatment, framed in elegance and grace. 👑</p>
+                    </div>
+                </div>
+            </div>
+            <div class="frame-card frame-classic" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/15.jpg" class="photo" alt="Afrin's Royal Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 2.8s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Royal Elegance</h3>
+                        <p class="photo-message">Majestic moments in Afrin's life deserve royal treatment, framed in elegance and grace. 👑</p>
+                    </div>
+                </div>
+            </div><div class="frame-card frame-classic" onclick="triggerMagic(this)">
+                <div class="afrin-watermark">Afrin</div>
+                <div class="photo-container">
+                    <img src="img/7.jpg" class="photo" alt="Afrin's Royal Memory">
+                    <div class="lighting-effect">
+                        <div class="light-beam" style="animation-delay: 2.8s;"></div>
+                        <div class="glow-effect"></div>
+                    </div>
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Afrin's Royal Elegance</h3>
+                        <p class="photo-message">Majestic moments in Afrin's life deserve royal treatment, framed in elegance and grace. 👑</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-controls">
+            <button class="premium-btn" onclick="illuminateAll()">🌟 Illuminate Afrin's World</button>
+            <button class="premium-btn" onclick="createFireworks()">🎆 Celebrate Afrin</button>
+            <button class="premium-btn" onclick="magicalShow()">✨ Afrin's Magical Show</button>
+        </div>
+    </div>
+
+    <script>
+        // Create twinkling stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function triggerMagic(element) {
+            // Enhanced lighting effect
+            const lightBeam = element.querySelector('.light-beam');
+            const glowEffect = element.querySelector('.glow-effect');
+            
+            lightBeam.style.animation = 'none';
+            glowEffect.style.animation = 'none';
+            
+            setTimeout(() => {
+                lightBeam.style.animation = 'lightSweep 1.5s ease-in-out';
+                glowEffect.style.animation = 'pulse 1.5s ease-in-out';
+            }, 10);
+            
+            // Create magic particles
+            createMagicParticles(element);
+            
+            // Enhanced photo effect
+            const photo = element.querySelector('.photo');
+            photo.style.transform = 'scale(1.2) rotate(3deg)';
+            photo.style.filter = 'brightness(1.4) saturate(1.6) contrast(1.3) hue-rotate(15deg)';
+            
+            setTimeout(() => {
+                photo.style.transform = '';
+                photo.style.filter = '';
+            }, 800);
+            
+            // Create firework at click position
+            const rect = element.getBoundingClientRect();
+            createFirework(rect.left + rect.width/2, rect.top + rect.height/2);
+            
+            // Create "AFRIN" text particles
+            createAfrinParticles(element);
+        }
+
+        function createAfrinParticles(element) {
+            const rect = element.getBoundingClientRect();
+            const letters = ['A', 'F', 'R', 'I', 'N'];
+            
+            letters.forEach((letter, index) => {
+                const particle = document.createElement('div');
+                particle.textContent = letter;
+                particle.style.position = 'fixed';
+                particle.style.left = rect.left + rect.width/2 + (index - 2) * 30 + 'px';
+                particle.style.top = rect.top + rect.height/2 + 'px';
+                particle.style.color = '#FFD700';
+                particle.style.fontSize = '2rem';
+                particle.style.fontFamily = 'Cinzel, serif';
+                particle.style.fontWeight = '700';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '1000';
+                particle.style.animation = 'magicFloat 3s ease-out forwards';
+                particle.style.animationDelay = index * 0.2 + 's';
+                document.body.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 3500);
+            });
+        }
+
+        function createMagicParticles(element) {
+            const rect = element.getBoundingClientRect();
+            const colors = ['#FFD700', '#FF69B4', '#FF1493', '#8A2BE2', '#4169E1', '#00CED1', '#ff6b6b', '#4ecdc4'];
+            
+            for (let i = 0; i < 35; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = rect.left + rect.width/2 + (Math.random() - 0.5) * rect.width + 'px';
+                particle.style.top = rect.top + rect.height/2 + (Math.random() - 0.5) * rect.height + 'px';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDelay = Math.random() * 0.8 + 's';
+                document.body.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 4000);
+            }
+        }
+
+        function createFirework(x, y) {
+            const colors = ['#FFD700', '#FF69B4', '#FF1493', '#8A2BE2', '#4169E1', '#00CED1', '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4'];
+            
+            for (let i = 0; i < 16; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = x + 'px';
+                firework.style.top = y + 'px';
+                firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                const angle = (i / 16) * Math.PI * 2;
+                const distance = 100 + Math.random() * 60;
+                firework.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+                
+                document.body.appendChild(firework);
+                setTimeout(() => firework.remove(), 1200);
+            }
+        }
+
+        function illuminateAll() {
+            const cards = document.querySelectorAll('.frame-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    triggerMagic(card);
+                    card.style.boxShadow = '0 0 50px rgba(255,215,0,0.9), 0 0 100px rgba(255,215,0,0.5)';
+                    setTimeout(() => {
+                        card.style.boxShadow = '';
+                    }, 2500);
+                }, index * 400);
+            });
+            
+            // Create "AFRIN" text explosion in center
+            setTimeout(() => {
+                createAfrinExplosion();
+            }, 1000);
+        }
+
+        function createAfrinExplosion() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            
+            const afrinText = document.createElement('div');
+            afrinText.textContent = 'AFRIN';
+            afrinText.style.position = 'fixed';
+            afrinText.style.left = centerX + 'px';
+            afrinText.style.top = centerY + 'px';
+            afrinText.style.transform = 'translate(-50%, -50%)';
+            afrinText.style.fontSize = '6rem';
+            afrinText.style.fontFamily = 'Great Vibes, cursive';
+            afrinText.style.color = '#FFD700';
+            afrinText.style.textShadow = '0 0 30px rgba(255,215,0,0.8)';
+            afrinText.style.pointerEvents = 'none';
+            afrinText.style.zIndex = '1001';
+            afrinText.style.animation = 'firework 2s ease-out forwards';
+            document.body.appendChild(afrinText);
+            
+            setTimeout(() => afrinText.remove(), 2000);
+        }
+
+        function createFireworks() {
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight * 0.7;
+                    createFirework(x, y);
+                    
+                    // Create multiple explosions
+                    setTimeout(() => createFirework(x + 80, y + 40), 300);
+                    setTimeout(() => createFirework(x - 80, y + 40), 600);
+                    
+                    // Spell out AFRIN with fireworks
+                    if (i === 5) {
+                        setTimeout(() => spellAfrinWithFireworks(), 800);
+                    }
+                }, i * 600);
+            }
+        }
+
+        function spellAfrinWithFireworks() {
+            const letters = ['A', 'F', 'R', 'I', 'N'];
+            const startX = window.innerWidth * 0.2;
+            const y = window.innerHeight * 0.3;
+            const spacing = window.innerWidth * 0.12;
+            
+            letters.forEach((letter, index) => {
+                setTimeout(() => {
+                    const x = startX + (index * spacing);
+                    createFirework(x, y);
+                    
+                    // Create letter particle
+                    const letterEl = document.createElement('div');
+                    letterEl.textContent = letter;
+                    letterEl.style.position = 'fixed';
+                    letterEl.style.left = x + 'px';
+                    letterEl.style.top = y + 'px';
+                    letterEl.style.transform = 'translate(-50%, -50%)';
+                    letterEl.style.fontSize = '4rem';
+                    letterEl.style.fontFamily = 'Cinzel, serif';
+                    letterEl.style.fontWeight = '700';
+                    letterEl.style.color = '#FFD700';
+                    letterEl.style.textShadow = '0 0 20px rgba(255,215,0,0.8)';
+                    letterEl.style.pointerEvents = 'none';
+                    letterEl.style.zIndex = '1001';
+                    letterEl.style.animation = 'pulse 2s ease-in-out infinite';
+                    document.body.appendChild(letterEl);
+                    
+                    setTimeout(() => letterEl.remove(), 4000);
+                }, index * 500);
+            });
+        }
+
+        function magicalShow() {
+            // Create cascading magical effects
+            const cards = document.querySelectorAll('.frame-card');
+            
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    // Rainbow glow effect
+                    const colors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#9400d3'];
+                    let colorIndex = 0;
+                    
+                    const colorInterval = setInterval(() => {
+                        card.style.boxShadow = `0 0 40px ${colors[colorIndex]}, 0 0 80px ${colors[colorIndex]}`;
+                        colorIndex = (colorIndex + 1) % colors.length;
+                    }, 250);
+                    
+                    setTimeout(() => {
+                        clearInterval(colorInterval);
+                        card.style.boxShadow = '';
+                    }, 4000);
+                    
+                    triggerMagic(card);
+                }, index * 300);
+            });
+            
+            // Create magical AFRIN particle shower
+            for (let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * window.innerWidth + 'px';
+                    particle.style.top = '-10px';
+                    particle.style.backgroundColor = ['#FFD700', '#FF69B4', '#FF1493', '#8A2BE2', '#4169E1'][Math.floor(Math.random() * 5)];
+                    particle.style.animation = 'magicFloat 5s ease-in-out forwards';
+                    document.body.appendChild(particle);
+                    
+                    setTimeout(() => particle.remove(), 5000);
+                }, i * 150);
+            }
+            
+            // Create floating AFRIN letters
+            setTimeout(() => {
+                createFloatingAfrinLetters();
+            }, 2000);
+        }
+
+        function createFloatingAfrinLetters() {
+            const letters = ['A', 'F', 'R', 'I', 'N'];
+            
+            letters.forEach((letter, index) => {
+                const letterEl = document.createElement('div');
+                letterEl.textContent = letter;
+                letterEl.style.position = 'fixed';
+                letterEl.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+                letterEl.style.top = window.innerHeight + 'px';
+                letterEl.style.fontSize = '5rem';
+                letterEl.style.fontFamily = 'Great Vibes, cursive';
+                letterEl.style.color = '#FFD700';
+                letterEl.style.textShadow = '0 0 30px rgba(255,215,0,0.8)';
+                letterEl.style.pointerEvents = 'none';
+                letterEl.style.zIndex = '1001';
+                letterEl.style.animation = 'magicFloat 6s ease-in-out forwards';
+                letterEl.style.animationDelay = index * 0.5 + 's';
+                document.body.appendChild(letterEl);
+                
+                setTimeout(() => letterEl.remove(), 7000);
+            });
+        }
+
+        // Initialize stars on load
+        createStars();
+
+        // Continuous magical ambiance with AFRIN theme
+        setInterval(() => {
+            if (Math.random() < 0.05) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+                particle.style.top = Math.random() * window.innerHeight + 'px';
+                particle.style.backgroundColor = '#FFD700';
+                particle.style.animation = 'magicFloat 4s ease-in-out forwards';
+                document.body.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 4000);
+            }
+        }, 1200);
+
+        // Occasional AFRIN letter drops
+        setInterval(() => {
+            if (Math.random() < 0.02) {
+                const letters = ['A', 'F', 'R', 'I', 'N'];
+                const letter = letters[Math.floor(Math.random() * letters.length)];
+                
+                const letterEl = document.createElement('div');
+                letterEl.textContent = letter;
+                letterEl.style.position = 'fixed';
+                letterEl.style.left = Math.random() * window.innerWidth + 'px';
+                letterEl.style.top = '-50px';
+                letterEl.style.fontSize = '3rem';
+                letterEl.style.fontFamily = 'Cinzel, serif';
+                letterEl.style.fontWeight = '700';
+                letterEl.style.color = 'rgba(255,215,0,0.6)';
+                letterEl.style.textShadow = '0 0 15px rgba(255,215,0,0.4)';
+                letterEl.style.pointerEvents = 'none';
+                letterEl.style.zIndex = '999';
+                letterEl.style.animation = 'magicFloat 8s linear forwards';
+                document.body.appendChild(letterEl);
+                
+                setTimeout(() => letterEl.remove(), 8000);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
